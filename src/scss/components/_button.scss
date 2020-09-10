@@ -1,0 +1,27 @@
+.btn {
+  margin: 15px 10px;
+  padding: 15px 25px;
+  background: $main-orange;
+  color: #fff;
+  border-radius: 5%;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.90rem;
+
+  &:hover {
+    background-color: darken($main-orange, 5%);
+  }
+
+  &:active {
+    -ms-transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
+  }
+}
+
+.btn-popup {
+  padding: 10px 25px;
+  margin: 10px 20px;
+}

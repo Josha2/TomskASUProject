@@ -1,0 +1,53 @@
+@import '../variables';
+
+.overlay {
+  position: fixed;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color:rgba(0,0,0,.15);
+  
+  
+  .popup {
+    max-width: 350px;
+    background-color: #fff;
+    position: absolute;
+    display: none;
+    left: 50%;
+    top: 25%;
+    border-radius: 2%;
+    transform: translate(-50%, -25%);
+    overflow: hidden;
+
+    .popup-header {
+      text-align: center;
+      h4 {
+        margin-top: 5px;
+        color: darken($main-orange, 10%);
+      }
+    }
+    
+    .popup-body {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px 20px 5px 20px;  
+
+      .popup-input {
+        width: 100%;
+        padding: 12px;
+        margin: 6px 0;
+        border: 1px solid #DEDCDC;
+        box-sizing: border-box;
+        border-radius: 5%;
+        font-size: 16px;
+      }
+    }
+
+    .popup-footer {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

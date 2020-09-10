@@ -1,0 +1,11 @@
+@import './libs/normalize';
+@import './variables';
+@import './fonts';
+@import './components/button';
+@import './components/persons';
+@import './components/popup';
+@import './components/notifications';
+
+body {
+  background-color: $background;
+}

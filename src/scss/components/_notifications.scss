@@ -1,0 +1,61 @@
+.error-message {
+  position: fixed;
+  display: none;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
+  background: #d93737;
+  padding: 15px 25px;
+  width: 15%;
+  p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+  }
+  /*responsive*/
+  @media (max-width: 1000px){
+    width: 35%;
+    p {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 500px){
+    width: 45%;
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
+.success-message {
+  position: fixed;
+  display: none;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
+  background: #8BC34A;
+  padding: 15px 25px;
+  width: 15%;
+  p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+  }
+  /*responsive*/
+  @media (max-width: 1000px){
+    width: 35%;
+    p {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 500px){
+    width: 45%;
+    p {
+      font-size: 1rem;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Libre Franklin";
+  src: url('./fonts/LibreFranklin-Regular.eot');
+  src: local('./fonts/Libre Franklin Regular'), local('LibreFranklin-Regular'),
+    url('./fonts/LibreFranklin-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/LibreFranklin-Regular.woff') format('woff'),
+    url('./fonts/LibreFranklin-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Libre Franklin";
+  src: url('./fonts/LibreFranklin-Bold.eot');
+  src: local('./fonts/Libre Franklin Bold'), local('LibreFranklin-Bold'),
+    url('./fonts/LibreFranklin-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/LibreFranklin-Bold.woff') format('woff'),
+    url('./fonts/LibreFranklin-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
