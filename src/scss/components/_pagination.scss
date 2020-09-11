@@ -1,0 +1,33 @@
+.pagination {
+  padding-right: 15px;
+  padding-top: 20px;
+  list-style-type: none;
+
+  .page-item {
+    display: inline;
+
+    button {
+      font-size: 1rem;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    &.active {
+      button {
+        color: #fff;
+        background-color: $main-orange;
+      }
+    }
+  }
+
+  /*responsive*/
+  @media(max-width: 450px){
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    button {
+      padding: 6px;
+    }
+  }
+}

@@ -5,6 +5,11 @@
   margin: 0 auto;
   margin-top: 65px;
   background: #fff;
+
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
+  }
   
   .table {
     width: 100%;
@@ -21,7 +26,7 @@
     }
 
     .info-td {
-      div {
+      .error-table-message {
         margin: 0 auto;
         max-width: 450px;
         display: flex;

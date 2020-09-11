@@ -1,13 +1,18 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import deleteImg from '../img/delete.png';
 import editImg from '../img/edit.png';
 import {fetchPersons} from '../redux/actions/actions';
 import ErrorMessage from '../components/ErrorMessage';
 import Spinner from '../components/Spinner';
+import Pagination from './Pagination';
 
 function PersonsTable({personsList, fetchPersons}) {
+  //состояние управления пагинацией
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage] = useState(7);
 
+  //получаем данные
   useEffect(() => {
     setTimeout(() => {
       fetchPersons();
@@ -15,7 +20,11 @@ function PersonsTable({personsList, fetchPersons}) {
   }, [fetchPersons]);
 
   //рендер тела таблицы
-  const tableContent = personsList.map((item) => {
+  const indexOfLastItem = currentPage * dataPerPage;
+  const indexOfFirstItem = indexOfLastItem - dataPerPage;
+  const personsGroup = personsList.slice(indexOfFirstItem, indexOfLastItem);
+
+  const tableContent = personsGroup.map((item) => {
     const {id, avatar, firstName, secondName} = item;
     return (
       <tr key={id}>
@@ -34,7 +43,7 @@ function PersonsTable({personsList, fetchPersons}) {
     return (
       <tr>
         <td colSpan={4} className="info-td">
-          <ErrorMessage/>
+          <Spinner/>
         </td>
       </tr>
     );
@@ -57,9 +66,18 @@ function PersonsTable({personsList, fetchPersons}) {
         {tableData}
       </tbody>
       </table>
-      <button className="btn">
-        Add Employee
-      </button>
+      <div className="table-footer">
+        <button className="btn">
+          Add Employee
+        </button>
+        <Pagination
+          dataPerPage={dataPerPage}
+          totalPages={personsList.length}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          currentGroup={personsGroup}
+        />
+      </div>
     </>
   );
 };
