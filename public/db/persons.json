@@ -89,6 +89,24 @@
       "firstName": "Marielle",
       "secondName": "Mohr",
       "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/shanehudson/128.jpg"
+    },
+    {
+      "firstName": "Биба",
+      "secondName": "Боба",
+      "avatar": "/static/media/newUser.685f4193.png",
+      "id": 16
+    },
+    {
+      "firstName": "Боба",
+      "secondName": "Биба",
+      "avatar": "/static/media/newUser.685f4193.png",
+      "id": 17
+    },
+    {
+      "firstName": "Тест",
+      "secondName": "Тест2",
+      "avatar": "/static/media/newUser.685f4193.png",
+      "id": 18
     }
   ]
 }

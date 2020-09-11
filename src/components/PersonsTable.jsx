@@ -1,22 +1,25 @@
 import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import deleteImg from '../img/delete.png';
-import editImg from '../img/edit.png';
 import {fetchPersons} from '../redux/actions/actions';
-import ErrorMessage from '../components/ErrorMessage';
+//import ErrorMessage from '../components/ErrorMessage';
 import Spinner from '../components/Spinner';
 import Pagination from './Pagination';
+import PopUp from '../components/PopUp';
+import deleteImg from '../img/delete.png';
+import editImg from '../img/edit.png';
 
 function PersonsTable({personsList, fetchPersons}) {
   //состояние управления пагинацией
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(7);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   //получаем данные
   useEffect(() => {
     setTimeout(() => {
       fetchPersons();
-    }, 1000);
+    }, 500);
   }, [fetchPersons]);
 
   //рендер тела таблицы
@@ -39,7 +42,8 @@ function PersonsTable({personsList, fetchPersons}) {
     );
   });
 
-  const test = () => {
+  //логика отображения спиннера/ошибки
+  function test() {
     return (
       <tr>
         <td colSpan={4} className="info-td">
@@ -48,11 +52,15 @@ function PersonsTable({personsList, fetchPersons}) {
       </tr>
     );
   };
-
   const tableData = personsList.length !== 0 ? tableContent : test();
 
   return (
     <>
+      <PopUp 
+        header="New person"
+        isOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
       <table className="table">
       <thead>
         <tr>
@@ -67,8 +75,11 @@ function PersonsTable({personsList, fetchPersons}) {
       </tbody>
       </table>
       <div className="table-footer">
-        <button className="btn">
-          Add Employee
+        <button 
+          className="btn"
+          onClick={() => {setIsModalOpen(!isModalOpen)}}
+        >
+          Add Person
         </button>
         <Pagination
           dataPerPage={dataPerPage}

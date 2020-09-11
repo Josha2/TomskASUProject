@@ -1,15 +1,42 @@
+import axios from 'axios';
+import newUser from '../../img/newUser.png';
+
+const url = "http://localhost:8080/persons";
+
 const fetchPersons = () => {
   return async (dispatch) => {
-    const responce = await fetch("http://localhost:8080/persons");
-    const body = await responce.json();
+    const responce = await axios.get(url);
     dispatch({
       type: "FETCH_PERSONS",
-      payload: body
+      payload: responce.data
+    });
+  };
+};
+
+const addNewPerson = (firstName, secondName) => {
+  return async (dispatch) => {
+    await axios.post(`${url}`, {
+      firstName,
+      secondName,
+      avatar: newUser
+    })
+    .then(responce => {
+      dispatch({
+        type: "FETCH_SUCCESS",
+        payload: responce
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: error.message
+      });
     });
   };
 };
 
 export {
-  fetchPersons
+  fetchPersons,
+  addNewPerson
 };
 
