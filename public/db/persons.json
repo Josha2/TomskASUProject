@@ -19,10 +19,10 @@
       "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/caseycavanagh/128.jpg"
     },
     {
-      "id": 4,
       "firstName": "Ward",
-      "secondName": "Wunsch",
-      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kaspernordkvist/128.jpg"
+      "secondName": "Wunsc",
+      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kaspernordkvist/128.jpg",
+      "id": 4
     },
     {
       "id": 5,
@@ -31,22 +31,16 @@
       "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/sircalebgrove/128.jpg"
     },
     {
-      "id": 6,
       "firstName": "Hellen",
       "secondName": "Toy",
-      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/nicollerich/128.jpg"
+      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/nicollerich/128.jpg",
+      "id": 6
     },
     {
-      "id": 7,
-      "firstName": "Chelsea",
-      "secondName": "Terry",
-      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/gcmorley/128.jpg"
-    },
-    {
-      "id": 8,
       "firstName": "Thalia",
       "secondName": "Davis",
-      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/mizhgan/128.jpg"
+      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/mizhgan/128.jpg",
+      "id": 8
     },
     {
       "id": 9,
@@ -91,8 +85,8 @@
       "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/shanehudson/128.jpg"
     },
     {
-      "firstName": "Боба",
-      "secondName": "Биба",
+      "firstName": "Gnilyas",
+      "secondName": "Artemov",
       "avatar": "/static/media/newUser.685f4193.png",
       "id": 17
     }

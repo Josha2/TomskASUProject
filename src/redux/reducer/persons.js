@@ -1,7 +1,8 @@
 const initialState = {
   personsList: [],
   isLoading: true,
-  hasError: false,
+  fetchError: false,
+  catchError: false,
   errorText: null,
   successText: null,
 };
@@ -14,23 +15,27 @@ const personsReducer = (state = initialState, action) => {
         personsList: action.payload,
         isLoading: false,
       };
-    case "ADD_NEW_PERSON":
-      return state
+    case "FETCH_ERROR":
+      return {
+        ...state,
+        fetchError: true,
+        errorText: action.payload,
+      };
     case "FETCH_SUCCESS":
       return {
         ...state,
         successText: action.payload
       };
-    case "FETCH_ERROR":
+    case "CATCH_ERROR":
       return {
         ...state,
-        hasError: true,
+        catchError: true,
         errorText: action.payload
       };
     case "CLEAR_ERROR":
       return {
         ...state,
-        hasError: false
+        catchError: false
       };
     default:
       return state;

@@ -4,10 +4,10 @@ module.exports = function(){
   return {
     persons: _.times(15, function(n) {
       return {
-        id: n + 1,
-        firstnName: faker.name.firstName(),
+        firstName: faker.name.firstName(),
         secondName: faker.name.lastName(),
-        avatar: faker.image.avatar()
+        avatar: faker.image.avatar(),
+        id: n + 1,
       }
     })
   };

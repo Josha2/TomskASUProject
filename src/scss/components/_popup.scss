@@ -33,7 +33,11 @@
     .popup-body {
       display: flex;
       flex-wrap: wrap;
-      margin: 20px 20px 5px 20px;  
+      margin: 20px 20px 5px 20px;
+      
+      span {
+        text-align: center;
+      }
 
       .popup-input {
         width: 100%;

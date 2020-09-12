@@ -1,7 +1,6 @@
 import React from 'react'
 import errorImg from '../img/error.jpg'
 
-
 function ErrorMessage() {
   return (
     <div className="error-table-message">

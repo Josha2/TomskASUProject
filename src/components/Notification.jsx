@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { clearError } from '../redux/actions/actions';
 
-function Notification({errorText, hasError, clearError}) {
+function Notification({errorText, catchError, clearError}) {
   return (
     <CSSTransition
-      in={hasError}
+      in={catchError}
       classNames={"error-notification"}
       timeout={{
         enter: 300,
@@ -25,10 +25,10 @@ function Notification({errorText, hasError, clearError}) {
   );
 };
 
-const mapStateToProps = ({errorText, hasError}) => {
+const mapStateToProps = ({errorText, catchError}) => {
   return {
     errorText,
-    hasError
+    catchError
   };
 };
 
