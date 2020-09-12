@@ -1,6 +1,7 @@
 const initialState = {
   personsList: [],
   isLoading: true,
+  hasError: false,
   errorText: null,
   successText: null,
 };
@@ -23,7 +24,13 @@ const personsReducer = (state = initialState, action) => {
     case "FETCH_ERROR":
       return {
         ...state,
+        hasError: true,
         errorText: action.payload
+      };
+    case "CLEAR_ERROR":
+      return {
+        ...state,
+        hasError: false
       };
     default:
       return state;

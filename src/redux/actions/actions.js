@@ -35,8 +35,28 @@ const addNewPerson = (firstName, secondName) => {
   };
 };
 
+const deletePerson = (id) => {
+  return async (dispatch) => {
+    await axios.delete(`${url}/${id}`)
+    .catch(error => {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: error.message
+      });
+    });
+  };
+};
+
+const clearError = () => {
+  return {
+    type: "CLEAR_ERROR",
+  };
+};
+
 export {
   fetchPersons,
-  addNewPerson
+  addNewPerson,
+  clearError,
+  deletePerson
 };
 

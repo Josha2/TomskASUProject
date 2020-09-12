@@ -1,19 +1,23 @@
 import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {fetchPersons} from '../redux/actions/actions';
+import {fetchPersons, addNewPerson, deletePerson} from '../redux/actions/actions';
 //import ErrorMessage from '../components/ErrorMessage';
+import Notification from './Notification';
 import Spinner from '../components/Spinner';
 import Pagination from './Pagination';
 import PopUp from '../components/PopUp';
 import deleteImg from '../img/delete.png';
 import editImg from '../img/edit.png';
 
-function PersonsTable({personsList, fetchPersons}) {
+function PersonsTable({personsList, fetchPersons, deletePerson, addNewPerson}) {
   //состояние управления пагинацией
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(7);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //состояния для открытия попап окон
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteIsModalOpen] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
 
   //получаем данные
   useEffect(() => {
@@ -36,7 +40,14 @@ function PersonsTable({personsList, fetchPersons}) {
         <td data-label="Second Name">{secondName}</td>
         <td data-label="Action">
           <img src={editImg} alt="edit"/>
-          <img src={deleteImg} alt="delete"/>
+          <img 
+            src={deleteImg} 
+            alt="delete"
+            onClick={() => {
+              setCurrentId(id);
+              setDeleteIsModalOpen(true);
+            }}
+          />
         </td>
       </tr>
     );
@@ -56,10 +67,21 @@ function PersonsTable({personsList, fetchPersons}) {
 
   return (
     <>
+      <Notification/>
       <PopUp 
         header="New person"
-        isOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+        isOpen={isAddModalOpen}
+        setIsModalOpen={setIsAddModalOpen}
+        handleOkClick={addNewPerson}
+        inpuFields
+      />
+      <PopUp 
+        header="Delete person"
+        isOpen={isDeleteModalOpen}
+        setIsModalOpen={setDeleteIsModalOpen}
+        handleOkClick={deletePerson}
+        id={currentId}
+        inpuFields={false}
       />
       <table className="table">
       <thead>
@@ -77,7 +99,7 @@ function PersonsTable({personsList, fetchPersons}) {
       <div className="table-footer">
         <button 
           className="btn"
-          onClick={() => {setIsModalOpen(!isModalOpen)}}
+          onClick={() => setIsAddModalOpen(true)}
         >
           Add Person
         </button>
@@ -100,7 +122,9 @@ const mapStateToProps = ({personsList}) => {
 };
 
 const mapDispatchToProps = {
-  fetchPersons
+  fetchPersons,
+  addNewPerson,
+  deletePerson
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(PersonsTable));

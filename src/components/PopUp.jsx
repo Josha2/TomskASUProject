@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { addNewPerson } from '../redux/actions/actions';
+import React, { memo, useState } from 'react';
 
-function PopUp({isOpen, header, setIsModalOpen, addNewPerson}) {
+function PopUp({isOpen, header, setIsModalOpen, inpuFields, id, handleOkClick}) {
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   
-  return (
-    <div
-      className="overlay" 
-      style={{"display" : isOpen ? "block" : "none"}}
-    >
-      <div
-        className="popup"
-        style={{"display" : isOpen ? "block" : "none"}}
-      >
-        <div className="popup-header">
-          <h4>{header}</h4>
-        </div>
-        <div className="popup-body">
+  function onOkClick(){
+    if(inpuFields)
+      handleOkClick(firstName, secondName);
+    else 
+      handleOkClick(id)
+  };
+
+  function popUpBody() {
+    if(inpuFields){
+      return (
+        <>
           <input 
             type="text" 
             placeholder="Enter first name" 
@@ -33,6 +29,28 @@ function PopUp({isOpen, header, setIsModalOpen, addNewPerson}) {
             value={secondName}
             onChange={(e) => setSecondName(e.target.value)}
           />
+        </>
+      );
+    }
+    else {
+      return <span>Are you sure you want to delete this person?</span>
+    }
+  };
+  
+  return (
+    <div
+      className="overlay" 
+      style={{"display" : isOpen ? "block" : "none"}}
+    >
+      <div
+        className="popup"
+        style={{"display" : isOpen ? "block" : "none"}}
+      >
+        <div className="popup-header">
+          <h4>{header}</h4>
+        </div>
+        <div className="popup-body">
+          {popUpBody()}
         </div>
         <div className="popup-footer">
           <button 
@@ -43,7 +61,7 @@ function PopUp({isOpen, header, setIsModalOpen, addNewPerson}) {
           </button>
           <button 
             className="btn btn-popup"
-            onClick={() => addNewPerson(firstName, secondName)}
+            onClick={onOkClick}
           >
             OK
           </button>
@@ -53,8 +71,4 @@ function PopUp({isOpen, header, setIsModalOpen, addNewPerson}) {
   );
 };
 
-const mapDispatchToProps = {
-  addNewPerson
-};
-
-export default connect(null, mapDispatchToProps)(PopUp);
+export default memo(PopUp);

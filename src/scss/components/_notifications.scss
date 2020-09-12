@@ -1,12 +1,13 @@
 .error-notification {
   position: fixed;
-  display: none;
+  display: block;
+  z-index: 1000;
   top: 5%;
   left: 50%;
   transform: translate(-50%, -5%);
   background: #d93737;
   padding: 15px 25px;
-  width: 15%;
+  width: 25%;
   p {
     text-align: center;
     font-weight: bold;
@@ -16,17 +17,29 @@
   /*responsive*/
   @media (max-width: 1000px){
     width: 35%;
-    p {
-      font-size: 1.25rem;
-    }
   }
 
-  @media (max-width: 500px){
-    width: 45%;
-    p {
-      font-size: 1rem;
-    }
+  @media (max-width: 610px){
+    width: 55%;
   }
+
+  @media (max-width: 400px){
+    width: 65%;
+  }
+}
+
+.error-notification-enter {
+  opacity: 0;
+}
+
+.error-notification-enter-active {
+  transition: opacity 300ms ease-out;
+  opacity: 1;
+}
+
+.error-notification-exit-active {
+  transition: opacity 500ms ease-out;
+  opacity: 0;
 }
 
 .success-notification {
