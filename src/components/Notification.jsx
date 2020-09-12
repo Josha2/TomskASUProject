@@ -10,7 +10,7 @@ function Notification({errorText, catchError, clearError}) {
       classNames={"error-notification"}
       timeout={{
         enter: 300,
-        exit: 500
+        exit: 300
       }}
       mountOnEnter
       unmountOnExit

@@ -1,8 +1,22 @@
 @import '../variables';
 
+.overlay-enter {
+  opacity: 0;
+}
+
+.overlay-enter-active {
+  transition: opacity 300ms ease-out;
+  opacity: 1;
+}
+
+.overlay-exit-active {
+  transition: opacity 300ms ease-out;
+  opacity: 0;
+}
+
 .overlay {
   position: fixed;
-  display: none;
+  display: block;
   z-index: 999;
   top: 0;
   right: 0;
@@ -10,12 +24,12 @@
   left: 0;
   background-color:rgba(0,0,0,.30);
   
-  
+
   .popup {
     max-width: 350px;
     background-color: #fff;
     position: absolute;
-    display: none;
+    display: block;
     left: 50%;
     top: 25%;
     border-radius: 2%;

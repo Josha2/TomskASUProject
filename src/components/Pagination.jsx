@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Pagination = ({ dataPerPage, totalPages, currentGroup, currentPage, setCurrentPage }) => {
+const Pagination = ({ dataPerPage, totalPages, currentGroup, currentPage, setCurrentPage, fetchError, isLoading}) => {
   //---Высчитываем количество страниц
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPages / dataPerPage); i++) {
@@ -34,7 +35,7 @@ const Pagination = ({ dataPerPage, totalPages, currentGroup, currentPage, setCur
   }
 
   return (
-    <ul className="pagination">
+    !(fetchError || isLoading) && <ul className="pagination">
       <li className={classNamePrev}>
         <button 
           className="page-link" 
@@ -46,7 +47,6 @@ const Pagination = ({ dataPerPage, totalPages, currentGroup, currentPage, setCur
           </span>
         </button>
       </li>
-
       {pageNumbers.map((element) => {
         let classNames = "page-item";
           if(element === currentPage){
@@ -65,7 +65,6 @@ const Pagination = ({ dataPerPage, totalPages, currentGroup, currentPage, setCur
               </button>
             </li>
         )})}
-
       <li className={classNameNext}>
         <button
           className="page-link"
@@ -81,4 +80,11 @@ const Pagination = ({ dataPerPage, totalPages, currentGroup, currentPage, setCur
   );
 };
 
-export default Pagination;
+const mapStateToProps = ({fetchError, isLoading}) => {
+  return {
+    fetchError,
+    isLoading
+  };
+};
+
+export default connect(mapStateToProps, null)(Pagination);

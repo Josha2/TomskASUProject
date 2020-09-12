@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 function PopUp({isOpen, header, setIsModalOpen, inputFields, user, handleOkClick, handleInputChange}) {
   const [firstName, setFirstName] = useState("");
@@ -66,36 +67,41 @@ function PopUp({isOpen, header, setIsModalOpen, inputFields, user, handleOkClick
   };
   
   return (
-    <div
-      className="overlay" 
-      style={{"display" : isOpen ? "block" : "none"}}
+    <CSSTransition
+      in={isOpen}
+      classNames={"overlay"}
+      timeout={{
+        enter: 300,
+        exit: 300
+      }}
+      mountOnEnter
+      unmountOnExit
     >
-      <div
-        className="popup"
-        style={{"display" : isOpen ? "block" : "none"}}
-      >
-        <div className="popup-header">
-          <h4>{header}</h4>
-        </div>
-        <div className="popup-body">
-          {popUpBody()}
-        </div>
-        <div className="popup-footer">
-          <button 
-            className="btn btn-popup"
-            onClick={() => setIsModalOpen(false)}
-          >
-            Close
-          </button>
-          <button 
-            className="btn btn-popup"
-            onClick={onOkClick}
-          >
-            OK
-          </button>
+      <div className="overlay">
+        <div className="popup">
+          <div className="popup-header">
+            <h4>{header}</h4>
+          </div>
+          <div className="popup-body">
+            {popUpBody()}
+          </div>
+          <div className="popup-footer">
+            <button 
+              className="btn btn-popup"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Close
+            </button>
+            <button 
+              className="btn btn-popup"
+              onClick={onOkClick}
+            >
+              OK
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </CSSTransition>
   );
 };
 
