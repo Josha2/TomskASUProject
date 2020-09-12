@@ -23,7 +23,7 @@ const fetchPersons = () => {
 
 const addNewPerson = (firstName, secondName) => {
   return async (dispatch) => {
-    await axios.post(`${url}h`, {
+    await axios.post(`${url}`, {
       firstName,
       secondName,
       avatar: newUser
