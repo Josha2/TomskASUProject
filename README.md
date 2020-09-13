@@ -9,5 +9,5 @@ json-server --watch persons.json -p 8080 <br />
 ### `Frontend`
 npm start <br />
 
-Чтобы проверить работу ошибок, в файле components/url/url изменить строку(и)
+Чтобы проверить работу ошибок, в файле src/url/url изменить строку(и)
 
