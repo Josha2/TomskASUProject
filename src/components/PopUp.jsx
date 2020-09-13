@@ -1,17 +1,64 @@
 import React, { memo, useState } from 'react';
+import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
+import { changePersons, catchSuccess, catchError } from '../redux/actions/actions';
+import {urlAction} from '../url/url';
+import axios from 'axios';
+import newUser from '../img/newUser.png';
 
-function PopUp({isOpen, header, setIsModalOpen, inputFields, user, handleOkClick, handleInputChange}) {
+function PopUp({isOpen, header, setIsModalOpen, inputFields, user, handleInputChange, changePersons, personsList, catchError, catchSuccess}) {
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
 
   function onOkClick(){
-    if(user === undefined)
-      handleOkClick(firstName, secondName);
-    else if (user && inputFields)
-      handleOkClick(user.id, user.firstName, user.secondName, user.avatar);
-    else if (!inputFields)
-      handleOkClick(user.id);
+    if(user === undefined){
+      axios
+        .post(urlAction, {
+          firstName: firstName === "" ? "New guy" : firstName,
+          secondName: secondName === "" ? "New guy" : secondName,
+          avatar: newUser
+        })
+        .then(responce => {
+          catchSuccess("Person successfully added!");
+          changePersons(personsList.concat(responce.data));
+          setIsModalOpen(false);
+        })
+        .catch(error => {
+          catchError(error);
+        });
+    }
+    else if (user && inputFields){
+      axios
+        .put(`${urlAction}/${user.id}`, {
+          firstName: user.firstName,
+          secondName: user.secondName,
+          avatar: user.avatar
+        })
+        .then(responce => {
+          catchSuccess("Data successfully changed!");
+          changePersons(personsList.map(person => 
+            person.id !== user.id ? person : responce.data
+          ));
+          setIsModalOpen(false);
+        })
+        .catch(error => {
+          catchError(error);
+        });
+    }
+    else if (!inputFields){
+      axios
+        .delete(`${urlAction}/${user.id}`)
+        .then(() => {
+          catchSuccess("Person successfully deleted!");
+          changePersons(personsList.filter(person => 
+            person.id !== user.id
+          ));
+          setIsModalOpen(false);
+        })
+        .catch(error => {
+          catchError(error);
+        });
+    }
   };
 
   function popUpBody(){
@@ -105,4 +152,16 @@ function PopUp({isOpen, header, setIsModalOpen, inputFields, user, handleOkClick
   );
 };
 
-export default memo(PopUp);
+const mapStateToProps = ({personsList}) => {
+  return {
+    personsList,
+  };
+};
+
+const mapDispatchToProps = {
+  changePersons,
+  catchSuccess,
+  catchError
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(memo(PopUp));

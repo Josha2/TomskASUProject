@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { addNewPerson, deletePerson, editPerson, fetchPersons } from '../redux/actions/actions';
+import { fetchPersons } from '../redux/actions/actions';
 import PopUp from '../components/PopUp';
 import Spinner from '../components/Spinner';
 import ErrorMessage from './ErrorMessage';
@@ -9,7 +9,7 @@ import Pagination from './Pagination';
 import deleteImg from '../img/delete.png';
 import editImg from '../img/edit.png';
 
-function PersonsTable({personsList, fetchPersons, addNewPerson, editPerson, deletePerson, isLoading, fetchError}) {
+function PersonsTable({personsList, fetchPersons, isLoading, fetchError}) {
   //состояние управления пагинацией
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(7);
@@ -20,18 +20,18 @@ function PersonsTable({personsList, fetchPersons, addNewPerson, editPerson, dele
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({id: null, firstName: "", secondName: "", avatar: null});
 
-  //получаем данные
   useEffect(() => {
     setTimeout(() => {
       fetchPersons();
     }, 500);
   }, [fetchPersons]);
 
-  //рендер тела таблицы
+  //вычленяем из массива personsList те n(7) элементов которые в данный момент отобр. на странице
   const indexOfLastItem = currentPage * dataPerPage;
   const indexOfFirstItem = indexOfLastItem - dataPerPage;
   const personsGroup = personsList.slice(indexOfFirstItem, indexOfLastItem);
-
+  
+  //рендер тела таблицы
   const tableData = personsGroup.map((item) => {
     const {id, avatar, firstName, secondName} = item;
     return (
@@ -62,7 +62,7 @@ function PersonsTable({personsList, fetchPersons, addNewPerson, editPerson, dele
   });
 
   //логика отображения спиннера/ошибки
-  function showTableContent() {
+  function showErrorOrSpinner() {
     return (
       <tr>
         <td colSpan={4} className="info-td"> 
@@ -80,14 +80,12 @@ function PersonsTable({personsList, fetchPersons, addNewPerson, editPerson, dele
         header="New person"
         isOpen={isAddModalOpen}
         setIsModalOpen={setIsAddModalOpen}
-        handleOkClick={addNewPerson}
         inputFields
       />
       <PopUp 
         header="Edit person"
         isOpen={isEditModalOpen}
         setIsModalOpen={setIsEditModalOpen}
-        handleOkClick={editPerson}
         handleInputChange={setCurrentUser}
         user={currentUser}
         inputFields
@@ -96,7 +94,6 @@ function PersonsTable({personsList, fetchPersons, addNewPerson, editPerson, dele
         header="Delete person"
         isOpen={isDeleteModalOpen}
         setIsModalOpen={setIsDeleteModalOpen}
-        handleOkClick={deletePerson}
         user={currentUser}
         inputFields={false}
       />
@@ -110,7 +107,7 @@ function PersonsTable({personsList, fetchPersons, addNewPerson, editPerson, dele
           </tr>
         </thead>
         <tbody>
-          {!(isLoading || fetchError) ? tableData : showTableContent()}
+          {!(isLoading || fetchError) ? tableData : showErrorOrSpinner()}
         </tbody>
       </table>
       <div className="table-footer">
@@ -143,9 +140,6 @@ const mapStateToProps = ({personsList, isLoading, fetchError}) => {
 
 const mapDispatchToProps = {
   fetchPersons,
-  addNewPerson,
-  editPerson,
-  deletePerson
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(PersonsTable));

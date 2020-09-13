@@ -24,9 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "generate": "json-server ./public/db/generate.js -p 8080",
-    "db": "json-server ./public/db/persons.json -p 8080"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

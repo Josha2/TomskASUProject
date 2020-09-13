@@ -3,7 +3,6 @@ import '../scss/app.scss';
 import PersonsTable from '../components/PersonsTable';
 
 function TablePage() {
-
   return (
     <div className="container">
       <PersonsTable/>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import TablePage from '../pages/TablePage';
 
 function App() {
@@ -9,4 +9,4 @@ function App() {
   );
 };
 
-export default App;
+export default memo(App);

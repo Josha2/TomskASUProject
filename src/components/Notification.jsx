@@ -1,13 +1,23 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { clearError } from '../redux/actions/actions';
+import { clearNotification } from '../redux/actions/actions';
 
-function Notification({errorText, catchError, clearError}) {
+function Notification({errorText, hasError, clearNotification, successText, hasSuccess}) {
+  useEffect(() => {
+    setTimeout(() => {
+      clearNotification();
+    }, 2000);
+  });
+  
   return (
     <CSSTransition
-      in={catchError}
-      classNames={"error-notification"}
+      in={hasError || hasSuccess}
+      classNames={classnames({
+        "success-notification": hasSuccess,
+        "error-notification": hasError
+      })}
       timeout={{
         enter: 300,
         exit: 300
@@ -16,24 +26,28 @@ function Notification({errorText, catchError, clearError}) {
       unmountOnExit
     >
       <div
-        onClick={clearError}
-        className="error-notification"
+        className={classnames({
+          "success-notification": hasSuccess,
+          "error-notification": hasError
+        })}
       >
-        <p>{errorText}</p>
+        <p>{errorText || successText}</p>
       </div>
     </CSSTransition>
   );
 };
 
-const mapStateToProps = ({errorText, catchError}) => {
+const mapStateToProps = ({successText, errorText, hasError, hasSuccess}) => {
   return {
+    successText,
+    hasSuccess,
     errorText,
-    catchError
+    hasError
   };
 };
 
 const mapDispatchToProps = {
-  clearError
+  clearNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Notification));

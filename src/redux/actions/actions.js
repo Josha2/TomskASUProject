@@ -1,81 +1,57 @@
 import axios from 'axios';
-import newUser from '../../img/newUser.png';
-
-const url = "http://localhost:8080/persons";
+import {urlLoad} from '../../url/url';
 
 const fetchPersons = () => {
-  return async (dispatch) => {
-    await axios.get(url)
-    .then(responce => {
-      dispatch({
-        type: "FETCH_PERSONS",
-        payload: responce.data
+  return (dispatch) => {
+    axios
+      .get(urlLoad)
+      .then(responce => {
+        dispatch({
+          type: "FETCH_PERSONS",
+          payload: responce.data
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: "FETCH_ERROR",
+          payload: error.message
+        });
       });
-    })
-    .catch(error => {
-      dispatch({
-        type: "FETCH_ERROR",
-        payload: error.message
-      });
-    });
-  };
+    };
 };
 
-const addNewPerson = (firstName, secondName) => {
-  return async (dispatch) => {
-    await axios.post(`${url}`, {
-      firstName,
-      secondName,
-      avatar: newUser
-    })
-    .catch(error => {
-      dispatch({
-        type: "CATCH_ERROR",
-        payload: error.message
-      });
-    });
-  };
-};
-
-const deletePerson = (id) => {
-  return async (dispatch) => {
-    await axios.delete(`${url}/${id}`)
-    .catch(error => {
-      dispatch({
-        type: "CATCH_ERROR",
-        payload: error.message
-      });
-    });
-  };
-};
-
-const editPerson = (id, firstName, secondName, avatar) => {
-  return async (dispatch) => {
-    await axios.put(`${url}/${id}`, {
-      firstName,
-      secondName,
-      avatar
-    })
-    .catch(error => {
-      dispatch({
-        type: "CATCH_ERROR",
-        payload: error.message
-      });
-    });
-  };
-};
-
-const clearError = () => {
+const changePersons = (persons) => {
   return {
-    type: "CLEAR_ERROR",
+    type: "CHANGE_PERSONS",
+    payload: persons
   };
+};
+
+const clearNotification = () => {
+  return {
+    type: "CLEAR_NOTIFICATION",
+  };
+};
+
+const catchError = (error) => {
+  return {
+    type: "CATCH_ERROR",
+    payload: error.message
+  }
+};
+
+const catchSuccess = (success) => {
+  return {
+    type: "CATCH_SUCCESS",
+    payload: success
+  }
 };
 
 export {
   fetchPersons,
-  addNewPerson,
-  editPerson,
-  deletePerson,
-  clearError
+  catchError,
+  catchSuccess,
+  clearNotification,
+  changePersons
 };
 
