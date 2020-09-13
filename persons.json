@@ -95,6 +95,12 @@
       "secondName": "New guy",
       "avatar": "/static/media/newUser.685f4193.png",
       "id": 19
+    },
+    {
+      "firstName": "New guy",
+      "secondName": "New guy",
+      "avatar": "/static/media/newUser.685f4193.png",
+      "id": 20
     }
   ]
 }
